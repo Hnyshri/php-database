@@ -47,9 +47,20 @@
 		$post_email = $_POST['user_email'];
 		$post_pass = $_POST['user_pass'];
 
-		$query = " insert into sign_in(user_name,name,gender,phone_no,email_id,pass) values('$$post_name','$$post_name1','$$post_gender','$$post_no','$$post_email','$$post_pass')";
-        if (mysql_query($query)) {
-			echo "<script>window.open('sign_next.php?signn=A new page has been inserted...','_self')</script>";
-		}
+        $query1 = "select * from sign_in where user_name='$post_name'";
+        $run = mysql_query($query1);
+        if(mysql_num_rows($run)==1)
+        {
+            echo "<script>alert('User name already exist, try another one! ')</script>";
+            exit();
+        }
+        else
+        {
+		    $query = " insert into sign_in(user_name,name,gender,phone_no,email_id,pass) values('$$post_name','$$post_name1','$$post_gender','$$post_no','$$post_email','$$post_pass')";
+            if (mysql_query($query)) 
+            {
+			    echo "<script>window.open('sign_next.php?signn=A new page has been inserted...','_self')</script>";
+            }
+        }
 	}
 ?>
